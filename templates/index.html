@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+</head>
+<body>
+    <h1>Вопросы</h1>
+    <ul>
+        {% for title, text in questions.items() %}
+            <li>
+                <h2>{{ title }}</h2>
+                <p>{{ text }}</p>
+                <h3>Answers:</h3>
+                <ul>
+                    {% if title in answers and answers[title] %}
+                        {% for answer in answers[title] %}
+                            <li>{{ answer }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>No answers yet.</li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Добавить вопрос</h2>
+    <form action="/add-question" method="POST">
+        <label for="title">Заголовок вопроса:</label>
+        <input type="text" id="title" name="title" required>
+        <br><br>
+        <label for="main_text">Текст вопроса:</label>
+        <textarea id="main_text" name="main_text" required></textarea>
+        <br><br>
+        <button type="submit">Введите вопрос</button>
+    </form>
+
+    <h2>Добавить ответ</h2>
+    <form action="/add-answer" method="POST">
+        <label for="question_title">Заголовок вопроса:</label>
+        <input type="text" id="question_title" name="question_title" required>
+        <br><br>
+        <label for="answer_text">Ответ:</label>
+        <textarea id="answer_text" name="answer_text" required></textarea>
+        <br><br>
+        <button type="submit">Введите ответ</button>
+    </form>
+</body>
+</html>
